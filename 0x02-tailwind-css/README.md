@@ -1,50 +1,69 @@
-# Tailwind CSS Project
+# React + TypeScript + Vite
 
-This project is set up to use Tailwind CSS for styling. Below are the instructions for setting up and using the project.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Project Structure
+Currently, two official plugins are available:
 
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      ...tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      ...tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      ...tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-tailwind-css-project
-├── src
-│   ├── input.css        # Input file for Tailwind CSS
-│   └── output.css       # Compiled output file from Tailwind CSS
-├── tailwind.config.js    # Configuration file for Tailwind CSS
-├── package.json          # npm configuration file
-└── README.md             # Project documentation
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-
-## Setup Instructions
-
-1. **Clone the repository** (if applicable):
-   ```bash
-   git clone <repository-url>
-   cd tailwind-css-project
-   ```
-
-2. **Install dependencies**:
-   Make sure you have Node.js installed. Then run:
-   ```bash
-   npm install
-   ```
-
-3. **Configure Tailwind CSS**:
-   The `tailwind.config.js` file is already set up to scan your HTML and JavaScript files for class names.
-
-4. **Create your CSS file**:
-   The `src/input.css` file imports Tailwind's base, components, and utilities styles. You can add custom styles here as needed.
-
-5. **Build your CSS**:
-   Use the Tailwind CLI tool to generate the final CSS file:
-   ```bash
-   npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
-   ```
-
-## Usage
-
-- Include the compiled CSS file (`src/output.css`) in your HTML files to apply Tailwind styles.
-- Use Tailwind's utility classes in your HTML to style your components.
-
-## License
-
-This project is licensed under the MIT License.
