@@ -1,0 +1,15 @@
+{
+  "name": "tailwind-css-project",
+  "version": "1.0.0",
+  "description": "A project to demonstrate the use of Tailwind CSS.",
+  "main": "src/output.css",
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./src/output.css --watch"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.0.0"
+  },
+  "devDependencies": {},
+  "author": "Your Name",
+  "license": "MIT"
+}
